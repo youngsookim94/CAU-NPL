@@ -1,3 +1,4 @@
 # CAU-NPL
+Chung-Ang University Nanophotonics Lab.
 
-asdf
+For management FDTD simulation codes.
