@@ -89,10 +89,10 @@ int main(int argc, char **argv)
 
         if ( W->N+N-n < 2*W->T ) {//W->N+N
             sliceSnap(W, Ex, XZ, 25, png(dkbr, -1), "/XZ-Ex/");
-            sliceSnap(W, Ez, XZ, 25, png(dkbr, -1), "/XZ-Ez/");
+            sliceSnap(W, Ey, XZ, 25, png(dkbr, -1), "/XZ-Ey/");
             sliceSnap(W, EE, XZ, 25, png(hot, -1), "/XZ-EE/");
             sliceSnap(W, Ex, XY, 25, png(dkbr, -1), "/XY-Ex/");
-            sliceSnap(W, Ez, XY, 25, png(dkbr, -1), "/XY-Ez/");
+            sliceSnap(W, Ey, XY, 25, png(dkbr, -1), "/XY-Ey/");
             sliceSnap(W, EE, XY, 25, png(hot, -1), "/XY-EE/");
             //export mode image
         }
