@@ -11,7 +11,7 @@ int main(int argc, char **argv)
 	res calc_Res = {2.5, {5}, {1240}, {{2,-wBox/2, wBox/2}, {2, -wBox/2, wBox/2}, {2, -hBox/2, hBox/2}}}; // resolution of calculation
 	dom TF = {{wBox/2 + 200}, {INF}, {hBox/2 + 200}}; // set TF domain area
 	dom calc_Dom = {{-a/2, a/2}, {0, 0}, {-a/2, a/2}}; // set calc. domain
-	sur sur_BC = {{SYM, PML}, {SYM, PML}, {PML}, {24}}; //set B.C.
+	sur sur_BC = {{SYM, PML}, {PBC}, {PML}, {24}}; //set B.C.
 	world calc_Wld = createWorld(calc_Dom, calc_Res, sur_BC, "%s_w%.0f_h%.0f_t%.0f_l%.0f",argv[0], wBox, hBox, tSlot,  wLength);
 	// define variables & define calcualtion space
 
@@ -21,6 +21,7 @@ int main(int argc, char **argv)
 		{Box, {{-wBox/2, wBox/2}, {-tSlot/2, tSlot/2}, {-hBox/2, hBox/2}}}
 		}
 	};
+
 
 	object AgSlot = {Difference, {2}, objects{agBox, slotAra}};
 
