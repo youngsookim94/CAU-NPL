@@ -8,8 +8,8 @@ int main(int argc, char **argv)
 	float a = 1500; // domain scale 
 	float wLength = atof(argv[4]); // wavelength
 
-	res calc_Res = {2.5, {5}, {1240}, {{2,-wBox/2, wBox/2}, {2, -wBox/2, wBox/2}, {2, -hBox/2, hBox/2}}; // resolution of calculation
-	dom TF = {{wBox/2 + 100}, {INF}, {hBox/2 + 100}}; // set TF domain area
+	res calc_Res = {2.5, {5}, {1240}, {{2,-wBox/2, wBox/2}, {2, -wBox/2, wBox/2}, {2, -hBox/2, hBox/2}}}; // resolution of calculation
+	dom TF = {{wBox/2 + 200}, {INF}, {hBox/2 + 200}}; // set TF domain area
 	dom calc_Dom = {{-a/2, a/2}, {0, 0}, {-a/2, a/2}}; // set calc. domain
 	sur sur_BC = {{SYM, PML}, {SYM, PML}, {PML}, {24}}; //set B.C.
 	world calc_Wld = createWorld(calc_Dom, calc_Res, sur_BC, "%s_w%.0f_h%.0f_t%.0f_l%.0f",argv[0], wBox, hBox, tSlot,  wLength);
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 		if (N-n <= 2*calc_Wld -> T) {
 
 			sliceSnap(calc_Wld, Ex, XZ, 20, png(dkbr, -1), "/XZ-Ex/");
-			sliceSnap(calc_Wld, ScEx, XZ, 20, png(dkbr, -1), "/XY-ScEx/");
+			sliceSnap(calc_Wld, ScEx, XZ, 20, png(dkbr, -1), "/XZ-ScEx/");
 			
 			sliceSnap(calc_Wld, EE, XZ, 20, png(jet, -1), "/XZ-EE/");
 			sliceSnap(calc_Wld, ScEE, XZ, 20, png(jet, -1), "/XZ-ScEE/");
