@@ -36,8 +36,8 @@ int main(int argc, char **argv)
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-    guidedWaveZ(W, "Guided_Mode_Profiles/Ex2", Ey, 3000, Sine, lambda, 100, 1, 0);
-    guidedWaveZ(W, "Guided_Mode_Profiles/Ez2", Ex, 3000, Sine, lambda, 100, 1, 0);
+    guidedWaveZ(W, "Guided_Mode_Profiles/Ex3", Ey, 3000, Sine, lambda, 100, 1, 0);
+    guidedWaveZ(W, "Guided_Mode_Profiles/Hz3", Ex, 3000, Sine, lambda, 100, 1, 0);
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
