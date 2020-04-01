@@ -37,7 +37,8 @@ int main(int argc, char **argv)
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
     guidedWaveZ(W, "Guided_Mode_Profiles/Ex3", Ey, 2500, Sine, lambda, 100, 1, 0);
-    guidedWaveZ(W, "Guided_Mode_Profiles/Hz3", Ex, 2500, Sine, lambda, 100, 1, 0);
+    guidedWaveZ(W, "Guided_Mode_Profiles/Hz3", Hx, 2500, Sine, lambda, 100, 1, 0);
+    guidedWaveZ(W, "Guided_Mode_Profiles/Ez3", Ex, 2500, Sine, lambda, 100, 1, 0);
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
@@ -89,10 +90,10 @@ int main(int argc, char **argv)
 
         if ( W->N+N-n < 2*W->T ) {//W->N+N
             sliceSnap(W, Ex, XZ, 25, png(dkbr, -1), "/XZ-Ex/");
-            sliceSnap(W, Ez, XZ, 25, png(dkbr, -1), "/XZ-Ez/");
+            sliceSnap(W, Ey, XZ, 25, png(dkbr, -1), "/XZ-Ez/");
             sliceSnap(W, EE, XZ, 25, png(hot, -1), "/XZ-EE/");
             sliceSnap(W, Ex, XY, 25, png(dkbr, -1), "/XY-Ex/");
-            sliceSnap(W, Ez, XY, 25, png(dkbr, -1), "/XY-Ez/");
+            sliceSnap(W, Ey, XY, 25, png(dkbr, -1), "/XY-Ez/");
             sliceSnap(W, EE, XY, 25, png(hot, -1), "/XY-EE/");
             //export mode image
         }
