@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 	float a = 1500; // domain scale 
 	float wLength = atof(argv[4]); // wavelength
 
-	res calc_Res = {2.5, {5}, {1240}}; // resolution of calculation
+	res calc_Res = {2.5, {5}, {1240}, {{2,-wBox/2, wBox/2}, {2, -wBox/2, wBox/2}, {2, -hBox/2, hBox/2}}; // resolution of calculation
 	dom TF = {{wBox/2 + 100}, {INF}, {hBox/2 + 100}}; // set TF domain area
 	dom calc_Dom = {{-a/2, a/2}, {0, 0}, {-a/2, a/2}}; // set calc. domain
 	sur sur_BC = {{SYM, PML}, {SYM, PML}, {PML}, {24}}; //set B.C.
