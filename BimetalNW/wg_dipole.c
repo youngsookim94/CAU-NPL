@@ -14,12 +14,10 @@ int main(int argc, char **argv)
     float sPos = wx*0.5-5;
     float resParam = wx*0.03;
 
-    float nLoop = atof(argv[3]);
-
     res Res = {resParam/2, {resParam, resParam, 4*resParam}, {1240}}; //variable grid by width of wg 
     dom Dom = {{domLengX}, {domLengY}, {-2000, 3000}};  
     sur Sur = {{SYM, PML}, {SYM, PML}, {PML}, {24}}; //su MyOldCode 1000/k
-    world W = createWorld(Dom, Res, Sur, "%s_lambd%.0f_w%.0f_dx%.1f_N%.0f", argv[0],lambda, wx, resParam, nLoop);
+    world W = createWorld(Dom, Res, Sur, "%s_lambd%.0f_w%.0f_dx%.1f", argv[0],lambda, wx, resParam);
    
     //input object
     object Ag_Side = {Box, {{-INF, INF}, {-INF, INF}, {0, INF}}}; //metal
@@ -36,7 +34,7 @@ int main(int argc, char **argv)
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-	pointDipole(W, Ex, sPos, 0, 0, Pulse, lambda, 100, 1);
+	pointDipole(W, Ex, 0, 0, 0, Pulse, lambda, 100, 1);
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
@@ -54,7 +52,7 @@ int main(int argc, char **argv)
 
 	writeTxt(W, "/Ratio", "Wavelength\tAgOut\tAuOut\tTotal\r\n");
 
-    for (int n = 1, N = nLoop*lambda/W->dt; timer(n, W->N+N); n++) {//W->N+N
+    for (int n = 1, N = 15000/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
 		AgOut -= poyntingZ(W, 200, -wx/2, wx/2, -wx/2, wx/2);
 		AuOut -= poyntingZ(W, -200, -wx/2, wx/2, -wx/2, wx/2); 
