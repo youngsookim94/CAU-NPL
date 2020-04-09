@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     float resParam = wx*0.03;
 
     res Res = {resParam/2, {resParam, resParam, 4*resParam}, {1240}}; //variable grid by width of wg 
-    dom Dom = {{domLengX}, {domLengY}, {-2000, 3000}};  
+    dom Dom = {{domLengX}, {domLengY}, {-2000, 8000}};  
     sur Sur = {{SYM, PML}, {SYM, PML}, {PML}, {24}}; //su MyOldCode 1000/k
     world W = createWorld(Dom, Res, Sur, "%s_lambd%.0f_w%.0f_dx%.1f", argv[0],lambda, wx, resParam);
    
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-	pointDipole(W, Ex, 0, 0, 0, Pulse, lambda, 100, 1);
+	pointDipole(W, Ex, 0, 0, 4000, Pulse, lambda, 100, 1);
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
