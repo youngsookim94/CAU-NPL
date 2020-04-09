@@ -54,19 +54,19 @@ int main(int argc, char **argv)
 
     for (int n = 1, N = 15000/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
-		AgOut -= poyntingZ(W, 200, -wx/2, wx/2, -wx/2, wx/2);
-		AuOut -= poyntingZ(W, -200, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut2 -= poyntingZ(W, -400, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut3 -= poyntingZ(W, -800, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut4 -= poyntingZ(W, -1600, -wx/2, wx/2, -wx/2, wx/2); 
+		AgOut -= poyntingZ(W, 6500, -wx/2, wx/2, -wx/2, wx/2);
+		AuOut -= poyntingZ(W, 1500, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut2 -= poyntingZ(W, -250, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut3 -= poyntingZ(W, -500, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut4 -= poyntingZ(W, -1000, -wx/2, wx/2, -wx/2, wx/2); 
 		//totalOut += poyntingOut(W, -wx/2, wx/2, -wx/2, wx/2, -700, -690);
 
         updateE(W);
-		AgOut -= poyntingZ(W, 200, -wx/2, wx/2, -wx/2, wx/2);
-		AuOut -= poyntingZ(W, -200, -wx/2, wx/2, -wx/2, wx/2);
-        AuOut2 -= poyntingZ(W, -400, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut3 -= poyntingZ(W, -800, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut4 -= poyntingZ(W, -1600, -wx/2, wx/2, -wx/2, wx/2); 
+		AgOut -= poyntingZ(W, 6500, -wx/2, wx/2, -wx/2, wx/2);
+		AuOut -= poyntingZ(W, 1500, -wx/2, wx/2, -wx/2, wx/2);
+        AuOut2 -= poyntingZ(W, -250, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut3 -= poyntingZ(W, -500, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut4 -= poyntingZ(W, -1000, -wx/2, wx/2, -wx/2, wx/2); 
 		//totalOut += poyntingOut(W, -wx/2, wx/2, -wx/2, wx/2, -700, -690);
 
 		if (!(n%(W->T))) {
