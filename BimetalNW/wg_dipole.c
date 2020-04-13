@@ -52,21 +52,21 @@ int main(int argc, char **argv)
 
 	writeTxt(W, "/Ratio", "Wavelength\tAgOut\tAuOut\tTotal\r\n");
 
-    for (int n = 1, N = 5000/W->dt; timer(n, W->N+N); n++) {//W->N+N
+    for (int n = 1, N = 30000/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
-		AgOut -= poyntingZ(W, 6500, -wx/2, wx/2, -wx/2, wx/2);
-		AuOut -= poyntingZ(W, 1500, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut2 -= poyntingZ(W, -250, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut3 -= poyntingZ(W, -500, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut4 -= poyntingZ(W, -1000, -wx/2, wx/2, -wx/2, wx/2); 
+		AgOut += poyntingZ(W, 6500, -wx/2, wx/2, -wx/2, wx/2);
+		AuOut += poyntingZ(W, 1500, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut2 += poyntingZ(W, -250, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut3 += poyntingZ(W, -500, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut4 += poyntingZ(W, -1000, -wx/2, wx/2, -wx/2, wx/2); 
 		//totalOut += poyntingOut(W, -wx/2, wx/2, -wx/2, wx/2, -700, -690);
 
         updateE(W);
-		AgOut -= poyntingZ(W, 6500, -wx/2, wx/2, -wx/2, wx/2);
-		AuOut -= poyntingZ(W, 1500, -wx/2, wx/2, -wx/2, wx/2);
-        AuOut2 -= poyntingZ(W, -250, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut3 -= poyntingZ(W, -500, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut4 -= poyntingZ(W, -1000, -wx/2, wx/2, -wx/2, wx/2); 
+		AgOut += poyntingZ(W, 6500, -wx/2, wx/2, -wx/2, wx/2);
+		AuOut += poyntingZ(W, 1500, -wx/2, wx/2, -wx/2, wx/2);
+        AuOut2 += poyntingZ(W, -250, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut3 += poyntingZ(W, -500, -wx/2, wx/2, -wx/2, wx/2); 
+		AuOut4 += poyntingZ(W, -1000, -wx/2, wx/2, -wx/2, wx/2); 
 		//totalOut += poyntingOut(W, -wx/2, wx/2, -wx/2, wx/2, -700, -690);
 
 		if (!(n%(W->T))) {
