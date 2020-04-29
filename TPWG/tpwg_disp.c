@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 	putObjects(W, Ag, ag_Plate, n(n_Si), Si_lattice, n(n_SiO2), SiO2_lattice, Air);
 	//input object in the World
 
-	pointDipole(W, Ez, 0, 0, -sZ, Pulse, 2000, 3000);
+	pointDipole(W, Ez, 0, 0, -sZ, Pulse, 900, 100);
 	
 	slice XY = createSliceXY(W, 0);
 	slice XZ = createSliceXZ(W, 0);
@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 	sliceSnap(W, LogRI, YZ, png(gray, 0), "/YZ");
 	sliceSnap(W, LogRI, XZ, png(gray, 0), "/XZ");
 	
-	for (int n=1, N=150000; timer(n, N); n++) {
+	for (int n=1, N=500000; timer(n, N); n++) {
 		updateH(W);
 		updateE(W);
 		
