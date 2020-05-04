@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     //input objects in world
     putObjects(W, Drude_Ag, Ag_wire, n(2.6));
 
-	pointDipole(W, Ex, 0, 0, 4000, Pulse, lambda, 100, 1);
+	pointDipole(W, Ex, 0, 0, 4000, Sine, lambda, 100, 1);
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 
 	writeTxt(W, "/Ratio", "Wavelength\tAgOut\tAuOut\tTotal\r\n");
 
-    for (int n = 1, N = 30000/W->dt; timer(n, W->N+N); n++) {//W->N+N
+    for (int n = 1, N = 1000000/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
 		AgOut += poyntingZ(W, 6500, -wx/2, wx/2, -wx/2, wx/2);
 		AuOut += poyntingZ(W, 1500, -wx/2, wx/2, -wx/2, wx/2); 
