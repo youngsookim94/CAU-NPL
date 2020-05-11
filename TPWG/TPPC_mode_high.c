@@ -4,7 +4,7 @@
 int main(int argc, char **argv)
 {
 	float k = atof(argv[1]);
-	float wLength = atof(argv[2]);
+    float wLength = atof(argv[2]);
 	float w = 250.0;
 	float d_Si = 106.534;
 	float d_SiO2 = 260.42;
@@ -24,8 +24,9 @@ int main(int argc, char **argv)
 	object Si4 = {Box, {{-INF, INF}, {-INF, INF}, {-d_Si-3*d_DBR, -3*d_DBR}}};		
 	putObjects(W, Ag, grating, n(3.52), Si4,n(3.52), Si3,n(3.52), Si2,n(3.52), Si1, n(3.52), Substrate2, n(1.44), Substrate, Air);
 
-	pointDipole(W, Ey, 0, 0, -0.5*d_Si, Pulse, wLength, 200);
-
+	pointDipole(W, Ey, 150, 0, -0.5*d_Si, Pulse, wLength, 100,1,0);
+	pointDipole(W, Ey, -150, 0, -0.5*d_Si, Pulse, wLength, 100,1,180);
+	
 	slice XY = createSliceXY(W, 0);
 	slice XZ = createSliceXZ(W, 0);
 	slice YZ = createSliceYZ(W, 0);
@@ -33,7 +34,7 @@ int main(int argc, char **argv)
 	sliceSnap(W, LogRI, YZ, png(gray, 0), "/YZ");
 	sliceSnap(W, LogRI, XZ, png(gray, 0), "/XZ");	
 
-	for (int n=1, N=1000*1500/2/W->dt; timer(n, W->N+N); n++) {
+	for (int n=1, N=1000*2000/2/W->dt; timer(n, W->N+N); n++) {
 		updateE(W);
 		updateH(W);
 
@@ -42,7 +43,7 @@ int main(int argc, char **argv)
 //			sliceFreqDom(W, rawEz, XZ, N, 625, h5, "/%%/");
 			sliceFreqDom(W, Hz, XZ, N, wLength, png(dkbr,0), "/%%/");
 			sliceFreqDom(W, Ey, XZ, N, wLength, png(dkbr,0), "/%%/");
-			writeSpectrum(W, N, 800, 2200, "/Spectrum", get(W, Ey, 0, 0, -0.5*d_Si));
+			writeSpectrum(W, N, 800, 2200, "/Spectrum", get(W, Ey, 150, 0, -0.5*d_Si));
 		}
 	}
 }
