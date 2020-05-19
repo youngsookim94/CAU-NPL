@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	dom TF = {{INF}, {INF}, {-INF, hBox/2 + 200}}; // set TF domain area
 	dom calc_Dom = {{a/2}, {0}, {1500}}; // set calc. domain
 	sur sur_BC = {{PML}, {PBC}, {PML}, {24}}; //set B.C.
-	world calc_Wld = createWorld(calc_Dom, calc_Res, sur_BC, "%s_l%.0f_a%.0f",argv[0], wLength, a);
+	world calc_Wld = createWorld(calc_Dom, calc_Res, sur_BC, "%s_a%.0f_l%.0f",argv[0], a, wLength);
 	// define variables & define calcualtion space
 
 	object agBox = {Box, {{-wBox/2, wBox/2}, {-INF, INF}, {-hBox/2, hBox/2}}};
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 			//getting field data as png image or h5 or txt file.
 		}
 	}
-	farFieldProfile(calc_Wld, Phs, AzimuthalMap, 360, 180, png(jet, 0), "/Log-");
+	farFieldProfile(calc_Wld, Phs, AzimuthalMap, 360, 180, png(hot, 0), "/Log-");
 	farFieldProfile(calc_Wld, Phs, AzimuthalMap, 360, 180, txt, "/Log-");
 	farFieldTheta(calc_Wld, Phs, 1, "/far_theta");
 }
