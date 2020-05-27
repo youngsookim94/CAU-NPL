@@ -63,14 +63,18 @@ int main(int argc, char **argv)
 		if (N-n < calc_Wld -> T) updatePhaser(calc_Wld, Phs);
 
 		if ( !(n%( calc_Wld ->T))) {
-			writeRow(calc_Wld, "/RTA_ratio", calc_Wld->dt*n/100, (mesR/mesTotal), (mesT/mesTotal), (mesA/mesTotal), mesTotal);
+			writeRow(calc_Wld, "/RTA_ratio", calc_Wld->dt*n/100, mesR, mesT, mesA, mesTotal);
 			mesR = 0;
 			mesA = 0;
 			mesT = 0;
 		}
 		if (N-n <= 2*calc_Wld -> T) {
 			sliceSnap(calc_Wld, Ex, XZ, 20, png(dkbr, -1), "/XZ-Ex/");
+			sliceSnap(calc_Wld, Ex, YZ, 20, png(dkbr, -1), "/YZ-Ex/");
+			sliceSnap(calc_Wld, Ex, XY, 20, png(dkbr, -1), "/XY-Ex/");
 			sliceSnap(calc_Wld, EE, XZ, 20, png(jet, -1), "/XZ-EE/");
+			sliceSnap(calc_Wld, EE, YZ, 20, png(jet, -1), "/YZ-EE/");
+			sliceSnap(calc_Wld, EE, XY, 20, png(jet, -1), "/XY-EE/");
 			//getting field data as png image or h5 or txt file.
 		}
 	}
