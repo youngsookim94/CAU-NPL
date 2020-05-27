@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 		if (N-n < calc_Wld -> T) updatePhaser(calc_Wld, Phs);
 
 		if ( !(n%( calc_Wld ->T))) {
-			writeRow(calc_Wld, "/RTA_ratio", calc_Wld->dt*n/100, (mesR/mesTotal), (mesT/mesTotal), (mesA/mesTotal), mesTotal);
+			writeRow(calc_Wld, "/RTA_ratio", calc_Wld->dt*n/100, mesR, mesT, mesA, mesTotal);
 			mesR = 0;
 			mesA = 0;
 			mesT = 0;
