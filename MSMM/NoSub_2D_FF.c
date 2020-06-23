@@ -1,4 +1,5 @@
 #include <alis.h>
+#include <math.h>
 
 int main(int argc, char **argv)
 {
@@ -45,13 +46,13 @@ int main(int argc, char **argv)
 
 	for (int n=1, N=100*wLength/calc_Wld -> dt; timer(n, N); n++) {
 		updateH(calc_Wld);
-		mesR += poyntingZ(calc_Wld, hBox/2+150);
+		mesR += -poyntingZ(calc_Wld, hBox/2+150);
 		mesT += -poyntingZ(calc_Wld, -250);
 		mesA += objectAbsorption(calc_Wld, AgSlot);
 		mesTotal = mesR + mesT + mesA;
 
 		updateE(calc_Wld);
-		mesR += poyntingZ(calc_Wld, hBox/2+150);
+		mesR += -poyntingZ(calc_Wld, hBox/2+150);
 		mesT += -poyntingZ(calc_Wld, -250);
 		mesA += objectAbsorption(calc_Wld, AgSlot);
 		mesTotal = mesR + mesT + mesA;
@@ -59,7 +60,7 @@ int main(int argc, char **argv)
 		if (N-n < calc_Wld -> T) updatePhaser(calc_Wld, Phs);
 
 		if ( !(n%( calc_Wld ->T))) {
-			writeRow(calc_Wld, "/RTA_ratio", calc_Wld->dt*n/100, mesR, mesT, mesA, mesTotal);
+			writeRow(calc_Wld, "/RTA_ratio", calc_Wld->dt*n/100, mesR/mesTotal, mesT/mesTotal, mesA/mesTotal, mesTotal);
 			mesR = 0;
 			mesA = 0;
 			mesT = 0;
@@ -70,7 +71,7 @@ int main(int argc, char **argv)
 			//getting field data as png image or h5 or txt file.
 		}
 	}
-	farFieldProfile(calc_Wld, Phs, AzimuthalMap, 360, 180, png(hot, 0), "/Log-");
+	farFieldProfile(calc_Wld, Phs, AzimuthalMap, 360, 180, png(jet, 0), "/Log-");
 	farFieldProfile(calc_Wld, Phs, AzimuthalMap, 360, 180, txt, "/Log-");
 	farFieldTheta(calc_Wld, Phs, 1, "/far_theta");
 }
