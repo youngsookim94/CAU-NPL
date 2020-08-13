@@ -18,9 +18,9 @@ int main(int argc, char **argv)
 	object agBox = {Box, {{-wBox/2, wBox/2}, {-INF, INF}, {-hBox/2, hBox/2}}};
 	object airSlot = {Box, {{-tSlot/2, tSlot/2}, {-INF, INF}, {-hBox/2, hBox/2}}};
 	
-	object AgSlot = {Difference, {2}, objects{agBox, tio2Slot}};
+	object AgSlot = {Difference, {2}, objects{agBox, airSlot}};
 
-	putObjects (calc_Wld, Ag, AgSlot, Air, tio2Slot, Air);
+	putObjects (calc_Wld, Ag, AgSlot, Air, airSlot, Air);
 	planewave(calc_Wld, TF, Ppol, 0, 0, Sine, wLength, 10);
 	// insert the object in calculation space.
 	// insert the light source as plane wave, Ex polarization.
