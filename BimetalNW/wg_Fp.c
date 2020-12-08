@@ -14,8 +14,6 @@ int main(int argc, char **argv)
     float sPos = wx*0.5-5;
     float resParam = wx*0.03;
 
-    float nLoop = atof(argv[3]);
-
     res Res = {resParam/2, {resParam, resParam, 4*resParam}, {1240}}; //variable grid by width of wg 
     dom Dom = {{domLengX}, {domLengY}, {-2000, 3000}};  
     sur Sur = {{SYM, PML}, {SYM, PML}, {PML}, {24}}; //su MyOldCode 1000/k
@@ -36,10 +34,8 @@ int main(int argc, char **argv)
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-    guidedWaveZ(W, "Guided_Mode_Profiles/Ex3", Ey, 2500, Sine, lambda, 100, 1, 0);
-    guidedWaveZ(W, "Guided_Mode_Profiles/Hz3", Hx, 2500, Sine, lambda, 100, 1, 0);
-    guidedWaveZ(W, "Guided_Mode_Profiles/Ez3", Ex, 2500, Sine, lambda, 100, 1, 0);
-
+    pointDipole(W, Ex, sPos, 0, 0, Pulse, lambda, 100, 0); //inducing fundamental mode 
+ 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
     slice YZ = createSliceYZ(W, 0);
@@ -56,7 +52,7 @@ int main(int argc, char **argv)
 
 	writeTxt(W, "/Ratio", "Wavelength\tAgOut\tAuOut\tTotal\r\n");
 
-    for (int n = 1, N = nLoop*lambda/W->dt; timer(n, W->N+N); n++) {//W->N+N
+    for (int n = 1, N = 400*lambda/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
 		AgOut -= poyntingZ(W, 200, -wx/2, wx/2, -wx/2, wx/2);
 		AuOut -= poyntingZ(W, -200, -wx/2, wx/2, -wx/2, wx/2); 
@@ -72,6 +68,16 @@ int main(int argc, char **argv)
 		AuOut3 -= poyntingZ(W, -800, -wx/2, wx/2, -wx/2, wx/2); 
 		AuOut4 -= poyntingZ(W, -1600, -wx/2, wx/2, -wx/2, wx/2); 
 		//totalOut += poyntingOut(W, -wx/2, wx/2, -wx/2, wx/2, -700, -690);
+
+        writeRow(W, "/OutputPW", W->dt*n, get(W, Ex, sPos, 0, 0));
+		writeNormalizedSpectrum(W, N, lambda - 200, lambda + 200, "/JX", get(W, Jx, sPos, 0, 0));
+		writeNormalizedSpectrum(W, N, lambda - 200, lambda + 200, "/EX", get(W, Ex, sPos, 0, 0));
+		writeNormalizedSpectrum(W, N, lambda - 200, lambda + 200, "/JY", get(W, Jy, sPos, 0, 0));
+		writeNormalizedSpectrum(W, N, lambda - 200, lambda + 200, "/EY", get(W, Ey, sPos, 0, 0));
+		writeNormalizedSpectrum(W, N, lambda - 200, lambda + 200, "/JZ", get(W, Jz, sPos, 0, 0));
+		writeNormalizedSpectrum(W, N, lambda - 200, lambda + 200, "/EZ", get(W, Ez, sPos, 0, 0));	
+
+		writeNormalizedSpectrum(W, N, lambda - 200, lambda + 200, "/JE", get(W, JE, sPos, 0, 0));	
 
 		if (!(n%(W->T))) {
 			writeRow(W, "/Ratio", W->dt*n/100, (AgOut), (AuOut), (AuOut2), (AuOut3), (AuOut4));
