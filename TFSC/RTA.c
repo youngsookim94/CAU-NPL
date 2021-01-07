@@ -51,8 +51,9 @@ int main(int argc, char **argv) {
         mesA += objectAbsorption(WLD, latticeSiO2) + objectAbsorption(WLD, latticeTiO2);
         mesTotal = mesR + mesT + mesA;
 
+        if (N-n < WLD -> T) updatePhaser(WLD, P);
         if (!(n%(WLD->T))) {
-            writeRow(WLD, "/RTA", WLD->dt*n/100, mesR/mesTotal, mesT/mesTotal, mesA/mesTotal);
+            writeRow(WLD, "/RTA", WLD->dt*n/100, mesR/mesTotal, mesT/mesTotal, mesA/mesTotal, mesTotal);
             mesR = 0;
             mesT = 0;
             mesA = 0;
