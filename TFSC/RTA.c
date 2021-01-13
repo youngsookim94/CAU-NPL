@@ -1,5 +1,6 @@
 #include <alis.h>
 #include <math.h>
+#include <string.h>
 
 int main(int argc, char **argv) {
     float lambda = atof(argv[1]);
@@ -10,12 +11,13 @@ int main(int argc, char **argv) {
     float dUnit = dTiO2 + dSiO2;
     float numLayer = atof(argv[2]);
     float lengthY = dUnit*numLayer;
+    float sAngle = atof(argv[3]);
 
-    res RES = {10, {20, 20, 10}, {1240}};
+    res RES = {5, {10, 10, 10}, {1240}};
     dom DTF = {{-INF, INF}, {-INF, INF}, {-INF, lengthY/2 + 200}};
-    dom DSF = {{100}, {0}, {lengthY/2 + 1500}};
-    sur SUR = {{PBC}, {PBC}, {PML}, {24}};
-    world WLD = createWorld(DSF, RES, SUR, "%s_n%.0f_l%.0f", argv[0], numLayer, lambda);
+    dom DSF = {{1000}, {0}, {lengthY/2 + 1500}};
+    sur SUR = {{BBC, lambda*sin(90)}, {BBC, lambda*sin(sAngle)}, {PML}, {24}};
+    world WLD = createWorld(DSF, RES, SUR, "%s_n%.0f_l%.0f_a%.0f", argv[0], numLayer, lambda, sAngle);
 
     object boxSiO2 = {Box, {{-INF, INF}, {-INF, INF}, {-150, 40}}};
     object boxTiO2 = {Box, {{-INF, INF}, {-INF, INF}, {40, 150}}};
@@ -24,11 +26,11 @@ int main(int argc, char **argv) {
     object latticeSiO2 = {Lattice, {{0, 1}, {0, 1}, {dUnit, numLayer}}, objects{boxSiO2}};
 
     putObjects (WLD, n(nTiO2), latticeTiO2, n(nSiO2), latticeSiO2, Air);
-    planewave(WLD, DTF, Ppol, 0, 0, Sine, lambda, 10);
+    planewave(WLD, DTF, Ppol, 90, sAngle, Sine, lambda, 10);
 
     phaser P = createPhaser(WLD, lambda);
     float mesR = 0, mesT = 0, mesA = 0, mesTotal = 0;
-    
+
     slice XY = createSliceXY(WLD, 0);
     slice XZ = createSliceXZ(WLD, 0);
     slice YZ = createSliceYZ(WLD, 0);
@@ -59,7 +61,7 @@ int main(int argc, char **argv) {
             mesT = 0;
             mesA = 0;
         }
-        
+    
         if (N-n <= 2*WLD -> T) {
             sliceSnap(WLD, Ex, XZ, 20, png(dkbr, -1), "/%%/");
         }
