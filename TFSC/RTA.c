@@ -11,10 +11,10 @@ int main(int argc, char **argv) {
     float numLayer = atof(argv[2]);
     float lengthY = dUnit*numLayer;
 
-    res RES = {5, {20, 20, 10}, {1240}};
-    dom DTF = {{INF}, {INF}, {lengthY/2 + 200}};
-    dom DSF = {{1000}, {0}, {lengthY/2 + 1500}};
-    sur SUR = {{SYM, PML}, {PML}, {PML}, {24}};
+    res RES = {10, {20, 20, 10}, {1240}};
+    dom DTF = {{-INF, INF}, {-INF, INF}, {-INF, lengthY/2 + 200}};
+    dom DSF = {{100}, {0}, {lengthY/2 + 1500}};
+    sur SUR = {{PBC}, {PBC}, {PML}, {24}};
     world WLD = createWorld(DSF, RES, SUR, "%s_n%.0f_l%.0f", argv[0], numLayer, lambda);
 
     object boxSiO2 = {Box, {{-INF, INF}, {-INF, INF}, {-150, 40}}};
@@ -39,22 +39,22 @@ int main(int argc, char **argv) {
 
     writeTxt(WLD, "/RTA", "Wavelength\tReflection\tTransmission\tAbsorption\tTotal\r\n");
 
-    for (int n = 1, N = 50*lambda/WLD -> dt; timer(n, N); n++) {
+    for (int n = 1, N = 200*lambda/WLD -> dt; timer(n, N); n++) {
         updateH(WLD);
-        mesR += fabs(poyntingZ(WLD, lengthY/2 + 150));
-        mesT += fabs(poyntingZ(WLD, lengthY/2 - 250));
+        mesR += fabs(poyntingZ(WLD, lengthY/2 + 250));
+        mesT += fabs(poyntingZ(WLD, -lengthY/2 - 1000));
         mesA += objectAbsorption(WLD, latticeSiO2) + objectAbsorption(WLD, latticeTiO2);
         mesTotal = mesR + mesT + mesA;
 
         updateE(WLD);
-        mesR += fabs(poyntingZ(WLD, dUnit*numLayer/2 + 150));
-        mesT += fabs(poyntingZ(WLD, dUnit*numLayer/2 - 250));
+        mesR += fabs(poyntingZ(WLD, dUnit*numLayer/2 + 250));
+        mesT += fabs(poyntingZ(WLD, dUnit*numLayer/2 - 150));
         mesA += objectAbsorption(WLD, latticeSiO2) + objectAbsorption(WLD, latticeTiO2);
         mesTotal = mesR + mesT + mesA;
 
         if (N-n < WLD -> T) updatePhaser(WLD, P);
         if (!(n%( WLD->T ))) {
-            writeRow(WLD, "/RTA", WLD->dt*n/50, mesR, mesT, mesA, mesTotal);
+            writeRow(WLD, "/RTA", WLD->dt*n/100, mesR, mesT, mesA, mesTotal);
             mesR = 0;
             mesT = 0;
             mesA = 0;
