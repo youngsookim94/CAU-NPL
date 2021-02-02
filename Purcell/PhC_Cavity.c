@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 		}
 		if (n+2*W->T > W->N+N) {
 			sliceSnap(W, EE, XY, 15, png(hot,-1), "/%%/");
-			sliceSnap(W, Ex, XY, 15, png(dkbr, -1), "/%%/");
+			sliceSnap(W, Ey, XY, 15, png(dkbr, -1), "/%%/");
 			sliceSnap(W, HH, XY, 15, png(hot, -1), "/%%/");
 			sliceSnap(W, Hz, XY, 15, png(dkbr, -1), "/%%/");
 		}
