@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 						}},
 					}};
 	putObjects(W, n(3.4), Slab, Air);
-	pointDipole(W, Ex, 0, 0, 0, Band, 750, 2000);
+	pointDipole(W, Ey, 0, 0, 0, Band, 750, 2000);
 
 	slice XY = createSliceXY(W, 0);
 	slice XZ = createSliceXZ(W, 0);
@@ -41,8 +41,8 @@ int main(int argc, char **argv)
 		writeSpectrum(W, N, 750, 2000, "/JE", get(W, JE, 200, 0, 0));	
 
 		if (n > W->N) {
-			writeRow(W, "/Time", W->dt*n, get(W, Ex, 0, 0, 0));
-			writeSpectrum(W, N, 750, 2000, "/Spectrum", get(W, Ex, 0, 0, 0));
+			writeRow(W, "/Time", W->dt*n, get(W, Ey, 0, 0, 0));
+			writeSpectrum(W, N, 750, 2000, "/Spectrum", get(W, Ey, 0, 0, 0));
 		}
 		if (n+2*W->T > W->N+N) {
 			sliceSnap(W, EE, XY, 15, png(hot,-1), "/%%/");
