@@ -59,13 +59,13 @@ int main(int argc, char **argv)
 
         if ( W->N+N-n < 2*W->T ) {//W->N+N
             sliceSnap(W, Ex, XZ, 25, png(dkbr, -1), "/XZ-Ex/");
-//            sliceSnap(W, Ex, XZ, 25, h5, "/XZ-Ex/");
+            sliceSnap(W, Ex, XZ, 25, h5, "/XZ-Ex/");
             sliceSnap(W, Hx, XZ, 25, png(dkbr, -1), "/XZ-Hx/");
-//            sliceSnap(W, Hx, XZ, 25, h5, "/XZ-Hx/");
+            sliceSnap(W, Hx, XZ, 25, h5, "/XZ-Hx/");
             sliceSnap(W, Ez, XZ, 25, png(dkbr, -1), "/XZ-Ez/");
-//            sliceSnap(W, Ez, XZ, 25, h5, "/XZ-Ez/");
+            sliceSnap(W, Ez, XZ, 25, h5, "/XZ-Ez/");
             sliceSnap(W, Hz, XZ, 25, png(dkbr, -1), "/XZ-Hz/");
-//            sliceSnap(W, Hz, XZ, 25, h5, "/XZ-Hz/");
+            sliceSnap(W, Hz, XZ, 25, h5, "/XZ-Hz/");
             sliceSnap(W, EE, XZ, 25, png(hot, -1), "/XZ-EE/");;
             //export mode image
         }
