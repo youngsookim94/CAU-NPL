@@ -18,8 +18,8 @@ int main(int argc, char **argv)
 
     res Res = {resParam/2, {resParam, resParam, 4*resParam}, {1240}}; //variable grid by width of wg 
     dom Dom = {{domLengX}, {domLengY}, {-2000, 3000}};  
-    sur Sur = {{SYM, PML}, {SYM, PML}, {PML}, {24}}; //su MyOldCode 1000/k
-    world W = createWorld(Dom, Res, Sur, "%s_lambd%.0f_w%.0f_dx%.1f_N%.0f", argv[0],lambda, wx, resParam, nLoop);
+    sur Sur = {{SYM, PEC}, {SYM, PEC}, {PML}, {24}}; //su MyOldCode 1000/k
+    world W = createWorld(Dom, Res, Sur, "%s_l%.0f_w%.0f_dx%.1f_N%.0f", argv[0],lambda, wx, resParam, nLoop);
    
     //input object
     object Ag_Side = {Box, {{-INF, INF}, {-INF, INF}, {0, INF}}}; //metal
@@ -36,8 +36,8 @@ int main(int argc, char **argv)
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-    guidedWaveZ(W, "Guided_Mode_Profiles/Ex3", Ey, 3000, Sine, lambda, 100, 1, 0);
-    guidedWaveZ(W, "Guided_Mode_Profiles/Hz3", Ex, 3000, Sine, lambda, 100, 1, 0);
+    guidedWaveZ(W, "Guided_Mode_Profiles/Ex2", Ey, 3000, Sine, lambda, 100, 1, 0);
+    guidedWaveZ(W, "Guided_Mode_Profiles/Ez2", Ex, 3000, Sine, lambda, 100, 1, 0);
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
 		//totalOut += poyntingOut(W, -wx/2, wx/2, -wx/2, wx/2, -700, -690);
 
 		if (!(n%(W->T))) {
-			writeRow(W, "/Ratio", W->dt*n/100, (AgOut), (AuOut), (AuOut2), (AuOut3), (AuOut4));
+			writeRow(W, "/Ratio", W->dt*n/nLoop, (AgOut), (AuOut), (AuOut2), (AuOut3), (AuOut4));
 			AgOut = 0;
             AuOut = 0;
 			totalOut = 0;
