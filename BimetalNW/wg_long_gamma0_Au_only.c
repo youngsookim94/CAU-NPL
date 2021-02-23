@@ -23,11 +23,11 @@ int main(int argc, char **argv)
     world W = createWorld(Dom, Res, Sur, "%s_l%.0f_w%.0f_dx%.1f_N%.0f", argv[0],lambda, wx, resParam, nLoop);
    
     //input object
-    object Ag_Side = {Box, {{-INF, INF}, {-INF, INF}, {-INF, 0}}}; //metal
-    object Au_Side = {Box, {{-INF, INF}, {-INF, INF}, {0, INF}}}; //metal
+//    object Ag_Side = {Box, {{-INF, INF}, {-INF, INF}, {-INF, INF}}}; //metal
+    object Au_Side = {Box, {{-INF, INF}, {-INF, INF}, {-INF, INF}}}; //metal
     object NW_wg = {Box, {{-wx/2, wx/2}, {-wy/2, wy/2}, {-INF, INF}}}; //dielectric NW
 
-	object Ag_wire = {Difference, {2}, objects {Ag_Side, NW_wg}};
+//	object Ag_wire = {Difference, {2}, objects {Ag_Side, NW_wg}};
 	object Au_wire = {Difference, {2}, objects {Au_Side, NW_wg}};
 
     // material def. for alis 1.0.2
@@ -35,7 +35,7 @@ int main(int argc, char **argv)
     matter Drude_Au = {{10.48449}, {9.0540, 0}};
 
     //input objects in world
- 	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
+ 	putObjects(W, Drude_Au, Au_wire, n(2.6));
 
     guidedWaveZ(W, "Guided_Mode_Profiles/Ex2", Ey, 3000, Sine, lambda, 100, 1, 0);
     guidedWaveZ(W, "Guided_Mode_Profiles/Ez2", Ex, 3000, Sine, lambda, 100, 1, 0);
@@ -80,7 +80,7 @@ int main(int argc, char **argv)
             AgOut3 = 0;
             AgOut4 = 0;
             AuOut = 0;
-
+            
 			totalOut = 0;
 		}
 		
