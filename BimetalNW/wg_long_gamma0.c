@@ -1,4 +1,5 @@
 #include <alis.h>
+#include <math.h>
 
 int main(int argc, char **argv)
 {
@@ -57,19 +58,19 @@ int main(int argc, char **argv)
 
     for (int n = 1, N = nLoop*lambda/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
-		AgOut -= poyntingZ(W, 200, -wx/2, wx/2, -wx/2, wx/2);
-		AuOut -= poyntingZ(W, -200, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut2 -= poyntingZ(W, -400, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut3 -= poyntingZ(W, -800, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut4 -= poyntingZ(W, -1600, -wx/2, wx/2, -wx/2, wx/2); 
+		AgOut = fabs(poyntingZ(W, 200, -wx/2, wx/2, -wx/2, wx/2));
+		AuOut = fabs(poyntingZ(W, -200, -wx/2, wx/2, -wx/2, wx/2)); 
+		AuOut2 = fabs(poyntingZ(W, -400, -wx/2, wx/2, -wx/2, wx/2)); 
+		AuOut3 = fabs(poyntingZ(W, -800, -wx/2, wx/2, -wx/2, wx/2)); 
+		AuOut4 = fabs(poyntingZ(W, -1600, -wx/2, wx/2, -wx/2, wx/2)); 
 		//totalOut += poyntingOut(W, -wx/2, wx/2, -wx/2, wx/2, -700, -690);
 
         updateE(W);
-		AgOut -= poyntingZ(W, 200, -wx/2, wx/2, -wx/2, wx/2);
-		AuOut -= poyntingZ(W, -200, -wx/2, wx/2, -wx/2, wx/2);
-        AuOut2 -= poyntingZ(W, -400, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut3 -= poyntingZ(W, -800, -wx/2, wx/2, -wx/2, wx/2); 
-		AuOut4 -= poyntingZ(W, -1600, -wx/2, wx/2, -wx/2, wx/2); 
+		AgOut = fabs(poyntingZ(W, 200, -wx/2, wx/2, -wx/2, wx/2));
+		AuOut = fabs(poyntingZ(W, -200, -wx/2, wx/2, -wx/2, wx/2));
+        AuOut2 = fabs(poyntingZ(W, -400, -wx/2, wx/2, -wx/2, wx/2)); 
+		AuOut3 = fabs(poyntingZ(W, -800, -wx/2, wx/2, -wx/2, wx/2)); 
+		AuOut4 = fabs(poyntingZ(W, -1600, -wx/2, wx/2, -wx/2, wx/2)); 
 		//totalOut += poyntingOut(W, -wx/2, wx/2, -wx/2, wx/2, -700, -690);
 
 		if (!(n%(W->T))) {
