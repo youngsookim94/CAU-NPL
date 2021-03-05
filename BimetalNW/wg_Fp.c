@@ -39,7 +39,7 @@ int main(int argc, char **argv)
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-    pointDipole(W, Ex, 0, 0, 0, Pulse, lambda, 100, 0); //inducing fundamental mode 
+    pointDipole(W, Ex, 0, 0, sPosZ, Pulse, lambda, 100, 0); //inducing fundamental mode 
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 
 	writeTxt(W, "/Ratio", "Wavelength\tAgOut\tAuOut\tTotal\r\n");
 
-    for (int n = 1, N = nLoop*lambda/W->dt; timer(n, W->N+N); n++) {//W->N+N
+    for (int n = 1, N = lambda*100/resParam/2/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
 	    updateE(W);
 
