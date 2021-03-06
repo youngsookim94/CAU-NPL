@@ -12,17 +12,15 @@ int main(int argc, char **argv)
     float domLengX = (wx+b0*2)/2; //define domain scale parameter
     float domLengY = (wy+b0*2)/2;
 
-    float sPos = wx*0.5-5;
+    float sPosX = 0;
     float resParam = wx*0.03;
 
     float sPosZ = atof(argv[3]);
 
-    float nLoop = 200;
-
     res Res = {resParam/2, {resParam, resParam, 4*resParam}, {1240}}; //variable grid by width of wg 
     dom Dom = {{domLengX}, {domLengY}, {-2000, 3000}};  
     sur Sur = {{SYM, PEC}, {SYM, PEC}, {PML}, {24}}; //su MyOldCode 1000/k
-    world W = createWorld(Dom, Res, Sur, "%s_l%.0f_w%.0f_dx%.1f_Z%.0f", argv[0],lambda, wx, resParam, sPosZ);
+    world W = createWorld(Dom, Res, Sur, "%s_l%.0f_w%.0f_dx%.1f_X%.0f_Z%.0f", argv[0],lambda, wx, resParam, sPosX, sPosZ);
    
     //input object
     object Ag_Side = {Box, {{-INF, INF}, {-INF, INF}, {-INF, 0}}}; //metal
@@ -42,7 +40,7 @@ int main(int argc, char **argv)
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-    pointDipole(W, Ex, 0, 0, sPosZ, Pulse, lambda, 10, 0); //inducing fundamental mode 
+    pointDipole(W, Ex, sPosX, 0, sPosZ, Pulse, lambda, 10, 0); //inducing fundamental mode 
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
@@ -62,18 +60,18 @@ int main(int argc, char **argv)
         updateH(W);
 	    updateE(W);
 
-        writeSpectrum(W, N, 750, 2000, "/JX", get(W, Jx, sPos, 0, sPosZ));
-		writeSpectrum(W, N, 750, 2000, "/EX", get(W, Ex, sPos, 0, sPosZ));
-		writeSpectrum(W, N, 750, 2000, "/JY", get(W, Jy, sPos, 0, sPosZ));
-		writeSpectrum(W, N, 750, 2000, "/EY", get(W, Ey, sPos, 0, sPosZ));
-		writeSpectrum(W, N, 750, 2000, "/JZ", get(W, Jz, sPos, 0, sPosZ));
-		writeSpectrum(W, N, 750, 2000, "/EZ", get(W, Ez, sPos, 0, sPosZ));	
+        writeSpectrum(W, N, 900, 1000, "/JX", get(W, Jx, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 900, 1000, "/EX", get(W, Ex, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 900, 1000, "/JY", get(W, Jy, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 900, 1000, "/EY", get(W, Ey, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 900, 1000, "/JZ", get(W, Jz, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 900, 1000, "/EZ", get(W, Ez, sPosX, 0, sPosZ));	
 
-		writeSpectrum(W, N, 750, 2000, "/JE", get(W, JE, sPos, 0, sPosZ));	
+		writeSpectrum(W, N, 900, 1000, "/JE", get(W, JE, sPosX, 0, sPosZ));	
 
 		if (n > W->N) {
-			writeRow(W, "/Time", W->dt*n, get(W, Ex, sPos, 0, sPosZ));
-			writeSpectrum(W, N, 750, 2000, "/Spectrum", get(W, Ex, sPos, 0, sPosZ));
+			writeRow(W, "/Time", W->dt*n, get(W, Ex, sPosX, 0, sPosZ));
+			writeSpectrum(W, N, 900, 1000, "/Spectrum", get(W, Ex, sPosX, 0, sPosZ));
         }
         if ( W->N+N-n < 2*W->T ) {//W->N+N
             sliceSnap(W, Ex, XZ, 25, png(dkbr, -1), "/XZ-Ex/");
