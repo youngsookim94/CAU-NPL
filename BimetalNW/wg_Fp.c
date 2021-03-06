@@ -32,14 +32,17 @@ int main(int argc, char **argv)
 	object Ag_wire = {Difference, {2}, objects {Ag_Side, NW_wg}};
 	object Au_wire = {Difference, {2}, objects {Au_Side, NW_wg}};
 
-    // material def. for alis 1.0.2
-    matter Drude_Ag = {{4.07666}, {9.2186, 0.02776}};
-    matter Drude_Au = {{10.48449}, {9.0540, 0.07750}};
+//    material def. for alis 1.0.2
+//    matter Drude_Ag = {{4.07666}, {9.2186, 0.02776}};
+//    matter Drude_Au = {{10.48449}, {9.0540, 0.07750}};
+
+    matter Drude_Ag = {{4.07666}, {9.2186, 0}};
+    matter Drude_Au = {{10.48449}, {9.0540, 0}};
 
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-    pointDipole(W, Ex, 0, 0, sPosZ, Pulse, lambda, 100, 0); //inducing fundamental mode 
+    pointDipole(W, Ex, 0, 0, sPosZ, Pulse, lambda, 10, 0); //inducing fundamental mode 
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
@@ -55,9 +58,7 @@ int main(int argc, char **argv)
 	float AgOut = 0, AgOut2 = 0, AgOut3 = 0, AgOut4 = 0;
 	float AuOut = 0;
 
-	writeTxt(W, "/Ratio", "Wavelength\tAgOut\tAuOut\tTotal\r\n");
-
-    for (int n = 1, N = lambda*100/resParam/2/W->dt; timer(n, W->N+N); n++) {//W->N+N
+    for (int n = 1, N = lambda*10/resParam/2/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
 	    updateE(W);
 
