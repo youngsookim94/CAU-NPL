@@ -13,11 +13,11 @@ int main(int argc, char **argv)
     float domLengY = (wy+b0*2)/2;
 
     float sPosX = 0;
-    float resParam = wx*0.03;
+    float resParam = 5; //wx*0.03;
 
     float sPosZ = atof(argv[3]);
 
-    res Res = {resParam/2, {resParam, resParam, 4*resParam}, {1240}}; //variable grid by width of wg 
+    res Res = {resParam/2, {resParam, resParam, 4*resParam}, {1240}, {{2, -wx/2, wx/2}, {2, -wy/2, wy/2}, {1, -INF, INF}}}; //variable grid by width of wg 
     dom Dom = {{domLengX}, {domLengY}, {-2000, 3000}};  
     sur Sur = {{SYM, PEC}, {SYM, PEC}, {PML}, {24}}; //su MyOldCode 1000/k
     world W = createWorld(Dom, Res, Sur, "%s_l%.0f_w%.0f_dx%.1f_X%.0f_Z%.0f", argv[0],lambda, wx, resParam, sPosX, sPosZ);
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 	float AgOut = 0, AgOut2 = 0, AgOut3 = 0, AgOut4 = 0;
 	float AuOut = 0;
 
-    for (int n = 1, N = lambda*10/resParam/2/W->dt; timer(n, W->N+N); n++) {//W->N+N
+    for (int n = 1, N = lambda*100/resParam/2/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
 	    updateE(W);
 
