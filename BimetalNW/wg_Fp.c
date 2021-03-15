@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     float domLengY = (wy+b0*2)/2;
 
     float sPosX = 0;
-    float resParam = 5; //wx*0.03;
+    float resParam = wx*0.03;
 
     float sPosZ = atof(argv[3]);
 
@@ -31,11 +31,11 @@ int main(int argc, char **argv)
 	object Au_wire = {Difference, {2}, objects {Au_Side, NW_wg}};
 
 //    material def. for alis 1.0.2
-//    matter Drude_Ag = {{4.07666}, {9.2186, 0.02776}};
-//    matter Drude_Au = {{10.48449}, {9.0540, 0.07750}};
+    matter Drude_Ag = {{4.07666}, {9.2186, 0.02776}};
+    matter Drude_Au = {{10.48449}, {9.0540, 0.07750}};
 
-    matter Drude_Ag = {{4.07666}, {9.2186, 0}};
-    matter Drude_Au = {{10.48449}, {9.0540, 0}};
+//    matter Drude_Ag = {{4.07666}, {9.2186, 0}};
+//    matter Drude_Au = {{10.48449}, {9.0540, 0}};
 
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
