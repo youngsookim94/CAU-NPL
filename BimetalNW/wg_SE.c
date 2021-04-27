@@ -32,11 +32,11 @@ int main(int argc, char **argv)
 	object Au_wire = {Difference, {2}, objects {Au_Side, NW_wg}};
 
 //    material def. for alis 1.0.2
-//    matter Drude_Ag = {{4.07666}, {9.2186, 0.02776}};
-//    matter Drude_Au = {{10.48449}, {9.0540, 0.07750}};
+    matter Drude_Ag = {{4.07666}, {9.2186, 0.02776}};
+    matter Drude_Au = {{10.48449}, {9.0540, 0.07750}};
 
-    matter Drude_Ag = {{4.07666}, {9.2186, 0}};
-    matter Drude_Au = {{10.48449}, {9.0540, 0}};
+//    matter Drude_Ag = {{4.07666}, {9.2186, 0}};
+//    matter Drude_Au = {{10.48449}, {9.0540, 0}};
 
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
@@ -55,9 +55,10 @@ int main(int argc, char **argv)
 
 	float totalOut = 0;
     float out = 0, positiveZ = 0, negativeZ = 0;
-    float Ref = 0, Trm = 0, Abs = 0;
+    float Ref = 0, Trm = 0, AbsAg = 0, AbsAu = 0;
 
-    writeTxt(W, "", "n\tTotal\tOut\r\n");
+    writeTxt(W, "", "n\tTotal\tOut\tR\tT\tposZ\tnegZ\tabs_Ag\tabs_Au\r\n");
+    writeTxt(W, "/ratio", "n\tTotal\tR\tT\tposZ\tnegZ\tabs_Ag\tabs_Au\r\n");
 
     for (int n = 1, N = lambda*100/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
@@ -65,22 +66,24 @@ int main(int argc, char **argv)
         out += poyntingOut(W, sPosX-(W->dx), sPosX+(W->dx), 0-(W->dy), 0+(W->dy), sPosZ-(W->dz), sPosZ+(W->dz));
         Ref += poyntingZ(W, sPosZ+200);
 		Trm -= poyntingZ(W, -200);
-        Abs += objectAbsorption(W, Au_wire) + objectAbsorption(W, Ag_wire);
-        positiveZ += poyntingZ(W, sPosZ + 100);
-		negativeZ -= poyntingZ(W, sPosZ - 100);       
+        AbsAu += objectAbsorption(W, Au_wire);
+        AbsAg += objectAbsorption(W, Ag_wire);
+        positiveZ += poyntingZ(W, sPosZ + 100, -wx/2-10, wx/2+10, -wx/2-10, wx/2+10);
+		negativeZ -= poyntingZ(W, sPosZ - 100, -wx/2-10, wx/2+10, -wx/2-10, wx/2+10);       
 
         updateE(W);
         totalOut -= 2 * W->dx * W->dy * W->dz * get(W, JE, sPosX, 0, sPosZ);
         out += poyntingOut(W, sPosX-(W->dx), sPosX+(W->dx), 0-(W->dy), 0+(W->dy), sPosZ-(W->dz), sPosZ+(W->dz));
         Ref += poyntingZ(W, sPosZ+200);
 		Trm -= poyntingZ(W, -200);
-        Abs += objectAbsorption(W, Au_wire) + objectAbsorption(W, Ag_wire);
-        positiveZ += poyntingZ(W, sPosZ + 100);
-		negativeZ -= poyntingZ(W, sPosZ - 100);  
+        AbsAu += objectAbsorption(W, Au_wire);
+        AbsAg += objectAbsorption(W, Ag_wire);
+        positiveZ += poyntingZ(W, sPosZ + 100, -wx/2-10, wx/2+10, -wx/2-10, wx/2+10);
+		negativeZ -= poyntingZ(W, sPosZ - 100, -wx/2-10, wx/2+10, -wx/2-10, wx/2+10);  
 
         if (!(n%(W->T))){
-            writeRow(W, "", W->dt*n/100, totalOut, out, Ref, Trm, positiveZ, negativeZ, Abs);
-            writeRow(W, "/ratio", n*W->dt, out/totalOut, Ref/totalOut, Trm/totalOut, positiveZ/totalOut, negativeZ/totalOut, Abs/totalOut);
+            writeRow(W, "", W->dt*n/100, totalOut, out, Ref, Trm, positiveZ, negativeZ, AbsAg, AbsAu);
+            writeRow(W, "/ratio", n*W->dt, out/totalOut, Ref/totalOut, Trm/totalOut, positiveZ/totalOut, negativeZ/totalOut, AbsAg/totalOut, AbsAu/totalOut);
         }
 
 		if (n > W->N) {
