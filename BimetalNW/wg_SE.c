@@ -16,6 +16,7 @@ int main(int argc, char **argv)
     float resParam = wx * 0.03;
 
     float sPosZ = atof(argv[3]);
+    float alphaCoeff = 0.03309; // at 40K, temperature dependent coefficient
 
     res Res = {resParam / 2, {resParam, resParam, 4 * resParam}, {1240}, {{2, -wx / 2, wx / 2}, {2, -wy / 2, wy / 2}, {1, -INF, INF}}};
     //variable grid by width of wg
@@ -32,8 +33,8 @@ int main(int argc, char **argv)
     object Au_wire = {Difference, {2}, objects{Au_Side, NW_wg}};
 
     //    material def. for alis 1.0.2
-    matter Drude_Ag = {{4.07666}, {9.2186, 0.02776}};
-    matter Drude_Au = {{10.48449}, {9.0540, 0.07750}};
+    matter Drude_Ag = {{4.07666}, {9.2186, alphaCoeff * 0.02776}};
+    matter Drude_Au = {{10.48449}, {9.0540, alphaCoeff * 0.07750}};
 
     //    matter Drude_Ag = {{4.07666}, {9.2186, 0}};
     //    matter Drude_Au = {{10.48449}, {9.0540, 0}};
