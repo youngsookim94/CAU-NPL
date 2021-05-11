@@ -40,13 +40,13 @@ int main(int argc, char **argv)
 	}
 
     //pointDipole(W, Ex, sPos, 0, 0, Pulse, lambda, 100, 1); //input dipole source
-    pointDipole(W, Ex, 0, 0, 0, Pulse, lambda, 100, 0); //inducing fundamental mode 
+    pointDipole(W, Ex, 0, 0, 0, Band, lambda, 500, 0); //inducing fundamental mode 
 
     slice XZ = createSliceXZ(W, 0);
     sliceSnap(W, LogRI, XZ, png(jet, 2), "/%%");
     sliceSnap(W, LogRI, XZ, txt, "/%%");
 
-    for (int n = 1, N = 15000/W->dt; timer(n, W->N+N); n++) {//W->N+N
+    for (int n = 1, N = lambda*500*2/W->dt; timer(n, W->N+N); n++) {//W->N+N
         updateH(W);
         updateE(W);
 
