@@ -15,6 +15,7 @@ int main(int argc, char **argv)
 
     float sPos = wx*0.5-5;
     float resParam = 2.5;
+    float alphaCoeff = 0.03309; //thermal dependency coefficient at 40 K
 
     res Res = {resParam/2, {resParam}, {1240}}; 
     dom Dom = {{domLengX}, {0}, {domLengY}};  
@@ -28,8 +29,8 @@ int main(int argc, char **argv)
     object Met_Slab = {Difference, {2}, objects {metSide, NW_wg}};
 
     // material def. for alis 1.0.2
-    matter Drude_Ag = {{4.07666}, {9.2186, 0.02776}};
-    matter Drude_Au = {{10.48449}, {9.0540, 0.07750}};
+    matter Drude_Ag = {{4.07666}, {9.2186, alphaCoeff * 0.02776}};
+    matter Drude_Au = {{10.48449}, {9.0540, alphaCoeff * 0.07750}};
 
     //input objects in world
     if ( matlSel == 0 ) {
@@ -70,6 +71,6 @@ int main(int argc, char **argv)
             //export mode image
         }
     }
-     exec("cut -f2 %s/ExMode.txt | harminv -s amplitude -t %f %f-%f | tee %s/Hinv.txt", W->ID, W->dt, 1/(lambda+100), 1/(lambda-100), W->ID);
+    // exec("cut -f2 %s/ExMode.txt | harminv -s amplitude -t %f %f-%f | tee %s/Hinv.txt", W->ID, W->dt, 1/(lambda+100), 1/(lambda-100), W->ID);
 
 }
