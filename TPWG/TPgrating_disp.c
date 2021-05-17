@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 
 	dom Dom = {{-aX/2, aX/2}, {2500}, {-2000, 1700}};
 	res Res = {2.5, {20, 25, 15}, {1240}};
-	sur Sur = {{PBC, 2*PI*(1000-aX/2)/k}, {PML, PML}, {PML, PML}};
+	sur Sur = {{PBC, 2*PI*(1000-aX)/k}, {PML, PML}, {PML, PML}};
 	world W = createWorld(Dom, Res, Sur, "%s_%03.1f_%.0f", argv[0], k, length_Ag);
 
 	object grating = {Box, {{-length_Ag/2, length_Ag/2}, {-0.5 * w, 0.5 * w}, { 0,  50}}};
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 	sliceSnap(W, LogRI, YZ, png(gray, 0), "/YZ");
 	sliceSnap(W, LogRI, XZ, png(gray, 0), "/XZ");	
 
-	for (int n=1, N=1500*500/5/W->dt; timer(n, W->N+N); n++) {
+	for (int n=1, N=1500*500/2.5/W->dt; timer(n, W->N+N); n++) {
 		updateE(W);
 		updateH(W);
 
