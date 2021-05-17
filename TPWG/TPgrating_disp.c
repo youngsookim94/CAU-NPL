@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 	object Si4 = {Box, {{-INF, INF}, {-0.5 * w, 0.5 * w}, {-d_Si-3*d_DBR, -3*d_DBR}}};		
 	putObjects(W, Ag, grating, n(nSi), Si4,n(nSi), Si3,n(nSi), Si2,n(nSi), Si1, n(nSi), Substrate2, n(nSiO2), Substrate, Air);
 
-	pointDipole(W, Ey, 0, 0, -100, Band, 1500, 500);
+	pointDipole(W, Ey, 0, 0, -100, Band, 1500, 1000);
 
 	slice XY = createSliceXY(W, -100);
 	slice XZ = createSliceXZ(W, 0);
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 	sliceSnap(W, LogRI, YZ, png(gray, 0), "/YZ");
 	sliceSnap(W, LogRI, XZ, png(gray, 0), "/XZ");	
 
-	for (int n=1, N=1500*500/2.5/W->dt; timer(n, W->N+N); n++) {
+	for (int n=1, N=1500*1000/2.5/W->dt; timer(n, W->N+N); n++) {
 		updateE(W);
 		updateH(W);
 
