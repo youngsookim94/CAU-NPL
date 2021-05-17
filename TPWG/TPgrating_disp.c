@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	float aX = 520;
 
 	dom Dom = {{-aX/2, aX/2}, {2500}, {-2000, 1700}};
-	res Res = {5, {20, 25, 15}, {1240}};
+	res Res = {2.5, {20, 25, 15}, {1240}};
 	sur Sur = {{PBC, 2*PI*(1000-aX/2)/k}, {PML, PML}, {PML, PML}};
 	world W = createWorld(Dom, Res, Sur, "%s_%03.1f_%.0f", argv[0], k, length_Ag);
 
