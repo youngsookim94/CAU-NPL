@@ -57,11 +57,12 @@ int main(int argc, char **argv)
 			sliceSnap(W, Ez, YZ, 25, png(dkbr, 0), "/YZ-Ez/");
 			sliceSnap(W, Ey, XZ, 25, png(dkbr, 0), "/XZ-Ey/");
 			sliceSnap(W, EE, XZ, 25, png(hot, -1), "/XZ-EE/");
-/*//		sliceFreqDom(W, rawEx, XZ, N, 625, h5, "/%%/");
+//			sliceFreqDom(W, rawEx, XZ, N, 625, h5, "/%%/");
 //			sliceFreqDom(W, rawEz, XZ, N, 625, h5, "/%%/");
-			sliceFreqDom(W, Ex, XZ, N, 1253, png(dkbr,0), "/%%/");
-			sliceFreqDom(W, Ey, XZ, N, 1253, png(dkbr,0), "/%%/");
-			sliceFreqDom(W, Hz, XZ, N, 1253, png(dkbr,0), "/%%/"); */
+//			sliceFreqDom(W, Ex, XZ, N, 1253, png(dkbr,0), "/%%/");
+			sliceFreqDom(W, Ez, XZ, N, 1253, png(dkbr,0), "/FreqEz-XZ/");
+			sliceFreqDom(W, Ey, XZ, N, 1253, png(dkbr,0), "/FreqEy-XZ/");
+//			sliceFreqDom(W, Hz, XZ, N, 1253, png(dkbr,0), "/%%/"); 
 		}
 	}
 }
