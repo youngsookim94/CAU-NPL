@@ -60,8 +60,8 @@ int main(int argc, char **argv)
 //			sliceFreqDom(W, rawEx, XZ, N, 625, h5, "/%%/");
 //			sliceFreqDom(W, rawEz, XZ, N, 625, h5, "/%%/");
 //			sliceFreqDom(W, Ex, XZ, N, 1253, png(dkbr,0), "/%%/");
-			sliceFreqDom(W, Ez, XZ, N, 1253, png(dkbr,0), "/FreqEz-XZ/");
-			sliceFreqDom(W, Ey, XZ, N, 1253, png(dkbr,0), "/FreqEy-XZ/");
+			sliceFreqDom(W, Ez, XZ, N, wLength, png(dkbr,0), "/FreqEz-XZ/");
+			sliceFreqDom(W, Ey, XZ, N, wLength, png(dkbr,0), "/FreqEy-XZ/");
 //			sliceFreqDom(W, Hz, XZ, N, 1253, png(dkbr,0), "/%%/"); 
 		}
 	}
