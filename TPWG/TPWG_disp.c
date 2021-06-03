@@ -4,7 +4,7 @@
 int main(int argc, char **argv)
 {
 	float k = atof(argv[1]);
-	float w = 1250;
+	float w = atof(argv[2]);
 	float d_Si = 120;
 	float d_SiO2 = 300;
 	float d_DBR = (d_Si + d_SiO2);
@@ -13,8 +13,8 @@ int main(int argc, char **argv)
 
 	dom Dom = {{0}, {2500}, {-2000, 1700}};
 	res Res = {7.5, {20, 25, 15}, {1240}};
-	sur Sur = {{PBC, 2*PI*1000/k}, {PML, PML}, {PML, PML}};
-	world W = createWorld(Dom, Res, Sur, "%s-%03.1f", argv[0], k);
+	sur Sur = {{PBC, 2*PI*1000/k}, {SYM, PML}, {PML, PML}};
+	world W = createWorld(Dom, Res, Sur, "%s_w%.0f_k%03.1f", argv[0], w, k);
 
 	object grating = {Box, {{-INF, INF}, {-0.5 * w, 0.5 * w}, { 0,  50}}};
 	object Substrate = {Box, {{-INF, INF}, {-0.5 * w, 0.5 * w}, {-INF, 0}}};
