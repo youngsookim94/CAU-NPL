@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	object Si4 = {Box, {{-INF, INF}, {-0.5 * w, 0.5 * w}, {-d_Si-3*d_DBR, -3*d_DBR}}};		
 	putObjects(W, Ag, grating, n(nSi), Si4,n(nSi), Si3,n(nSi), Si2,n(nSi), Si1, n(nSi), Substrate2, n(nSiO2), Substrate, Air);
 
-	pointDipole(W, Ey, 0, 0, -100, Band, 1500, 300);
+	pointDipole(W, Ey, 0, 0, -100, Band, 2000, 1500);
 
 	slice XY = createSliceXY(W, 0);
 	slice XZ = createSliceXZ(W, 0);
@@ -48,10 +48,10 @@ int main(int argc, char **argv)
 		}
 		if ( W->N+N-n < 2*W->T ) {
 			sliceSnap(W, Ey, YZ, 25, png(dkbr, 0), "/YZ-Ey/");
-			sliceSnap(W, Ey, YZ, 25, h5, "/YZ-Ey/");
+//			sliceSnap(W, Ey, YZ, 25, h5, "/YZ-Ey/");
 			sliceSnap(W, EE, YZ, 25, png(dkbr, 0), "/YZ-EE/");
 			sliceSnap(W, Ez, YZ, 25, png(dkbr, 0), "/YZ-Ez/");
-			sliceSnap(W, Ez, YZ, 25, h5, "/YZ-Ez/");
+//			sliceSnap(W, Ez, YZ, 25, h5, "/YZ-Ez/");
 /*//		sliceFreqDom(W, rawEx, XZ, N, 625, h5, "/%%/");
 //			sliceFreqDom(W, rawEz, XZ, N, 625, h5, "/%%/");
 			sliceFreqDom(W, Ex, XZ, N, 1253, png(dkbr,0), "/%%/");
