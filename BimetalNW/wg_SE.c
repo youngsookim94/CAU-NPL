@@ -17,12 +17,14 @@ int main(int argc, char **argv)
 
     float sPosZ = atof(argv[3]);
     float alphaCoeff = 0.03309; // at 40K, temperature dependent coefficient
+	float multiplier = atof(argv[4]);
+
 
     res Res = {resParam / 2, {resParam, resParam, 4 * resParam}, {1240}, {{2, -wx / 2, wx / 2}, {2, -wy / 2, wy / 2}, {1, -INF, INF}}};
     //variable grid by width of wg
     dom Dom = {{domLengX}, {domLengY}, {-2000, 3000}};
     sur Sur = {{SYM, PEC}, {SYM, PEC}, {PML}, {24}}; //su MyOldCode 1000/k
-    world W = createWorld(Dom, Res, Sur, "%s_l%.0f_w%.0f_dx%.1f_X%.0f_Z%.0f", argv[0], lambda, wx, resParam, sPosX, sPosZ);
+    world W = createWorld(Dom, Res, Sur, "%s_l%.0f_w%.0f_dx%.1f_X%.0f_Z%.0f_NM%.0f", argv[0], lambda, wx, resParam, sPosX, sPosZ, multiplier);
 
     //input object
     object Ag_Side = {Box, {{-INF, INF}, {-INF, INF}, {-INF, 0}}};             //metal
@@ -42,7 +44,7 @@ int main(int argc, char **argv)
     //input objects in world
     putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-    pointDipole(W, Ex, sPosX, 0, sPosZ, Pulse, lambda, 10, 0); //inducing fundamental mode
+    pointDipole(W, Ex, sPosX, 0, sPosZ, Pulse, lambda, 2.5, 0); //inducing fundamental mode
 
     slice XZ = createSliceXZ(W, 0);
     slice XY = createSliceXY(W, 0);
@@ -61,7 +63,7 @@ int main(int argc, char **argv)
     writeTxt(W, "", "n\tTotal\tOut\tR\tT\tposZ\tnegZ\tabs_Ag\tabs_Au\r\n");
     writeTxt(W, "/ratio", "n\tTotal\tR\tT\tposZ\tnegZ\tabs_Ag\tabs_Au\r\n");
 
-    for (int n = 1, N = lambda * 100 / W->dt; timer(n, W->N + N); n++)
+    for (int n = 1, N = lambda * multiplier / W->dt; timer(n, W->N + N); n++)
     { //W->N+N
         updateH(W);
         totalOut -= 2 * W->dx * W->dy * W->dz * get(W, JE, sPosX, 0, sPosZ);
@@ -85,7 +87,7 @@ int main(int argc, char **argv)
 
         if (!(n % (W->T)))
         {
-            writeRow(W, "", W->dt * n / 100, totalOut, out, Ref, Trm, positiveZ, negativeZ, AbsAg, AbsAu);
+            writeRow(W, "", W->dt * n / multiplier, totalOut, out, Ref, Trm, positiveZ, negativeZ, AbsAg, AbsAu);
             writeRow(W, "/ratio", n * W->dt, out / totalOut, Ref / totalOut, Trm / totalOut, positiveZ / totalOut, negativeZ / totalOut, AbsAg / totalOut, AbsAu / totalOut);
         }
 
