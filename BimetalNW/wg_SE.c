@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 
     res Res = {resParam / 2, {resParam, resParam, 4 * resParam}, {1240}, {{2, -wx / 2, wx / 2}, {2, -wy / 2, wy / 2}, {1, -INF, INF}}};
     //variable grid by width of wg
-    dom Dom = {{domLengX}, {domLengY}, {-2000, 3000}};
+    dom Dom = {{domLengX}, {domLengY}, {-500, 4500}};
     sur Sur = {{SYM, PEC}, {SYM, PEC}, {PML}, {24}}; //su MyOldCode 1000/k
     world W = createWorld(Dom, Res, Sur, "%s_l%.0f_w%.0f_dx%.1f_X%.0f_Z%.0f_NM%.0f", argv[0], lambda, wx, resParam, sPosX, sPosZ, multiplier);
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     //input objects in world
     putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-    pointDipole(W, Ex, sPosX, 0, sPosZ, Pulse, lambda, 2.5, 0); //inducing fundamental mode
+    pointDipole(W, Ex, sPosX, 0, sPosZ, Pulse, lambda, 5, 0); //inducing fundamental mode
 
     slice XZ = createSliceXZ(W, 0);
     slice XY = createSliceXY(W, 0);
