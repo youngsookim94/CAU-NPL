@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     float domLengY = (wy+b0*2)/2;
 
     float sPosX = 0;
-    float resParam = wx*0.03;
+    float resParam = 2;
 
     float sPosZ = atof(argv[3]);
 
@@ -40,7 +40,7 @@ int main(int argc, char **argv)
     //input objects in world
  	putObjects(W, Drude_Ag, Ag_wire, Drude_Au, Au_wire, n(2.6));
 
-    pointDipole(W, Ex, sPosX, 0, sPosZ, Pulse, lambda, 10, 0); //inducing fundamental mode 
+    pointDipole(W, Ex, sPosX, 0, sPosZ, Band, lambda, 200, 0); //inducing fundamental mode 
 
     slice XZ = createSliceXZ(W, 0);
 	slice XY = createSliceXY(W, 0);
@@ -60,18 +60,18 @@ int main(int argc, char **argv)
         updateH(W);
 	    updateE(W);
 
-        writeSpectrum(W, N, 900, 1000, "/JX", get(W, Jx, sPosX, 0, sPosZ));
-		writeSpectrum(W, N, 900, 1000, "/EX", get(W, Ex, sPosX, 0, sPosZ));
-		writeSpectrum(W, N, 900, 1000, "/JY", get(W, Jy, sPosX, 0, sPosZ));
-		writeSpectrum(W, N, 900, 1000, "/EY", get(W, Ey, sPosX, 0, sPosZ));
-		writeSpectrum(W, N, 900, 1000, "/JZ", get(W, Jz, sPosX, 0, sPosZ));
-		writeSpectrum(W, N, 900, 1000, "/EZ", get(W, Ez, sPosX, 0, sPosZ));	
+        writeSpectrum(W, N, 600, 1200, "/JX", get(W, Jx, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 600, 1200, "/EX", get(W, Ex, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 600, 1200, "/JY", get(W, Jy, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 600, 1200, "/EY", get(W, Ey, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 600, 1200, "/JZ", get(W, Jz, sPosX, 0, sPosZ));
+		writeSpectrum(W, N, 600, 1200, "/EZ", get(W, Ez, sPosX, 0, sPosZ));	
 
-		writeSpectrum(W, N, 900, 1000, "/JE", get(W, JE, sPosX, 0, sPosZ));	
+		writeSpectrum(W, N, 400, 2000, "/JE", get(W, JE, sPosX, 0, sPosZ));	
 
 		if (n > W->N) {
 			writeRow(W, "/Time", W->dt*n, get(W, Ex, sPosX, 0, sPosZ));
-			writeSpectrum(W, N, 900, 1000, "/Spectrum", get(W, Ex, sPosX, 0, sPosZ));
+			writeSpectrum(W, N, 600, 1200, "/Spectrum", get(W, Ex, sPosX, 0, sPosZ));
         }
         if ( W->N+N-n < 2*W->T ) {//W->N+N
             sliceSnap(W, Ex, XZ, 25, png(dkbr, -1), "/XZ-Ex/");
