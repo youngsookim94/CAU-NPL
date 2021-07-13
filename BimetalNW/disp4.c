@@ -14,7 +14,7 @@ int main(int argc, char **argv)
     float domLengY = (wy+b0*2)/2;
 
     float sPos = wx*0.5-5;
-    float resParam = 2.5;
+    float resParam = atof(argv[5]);
     float alphaCoeff = 0.03309; //thermal dependency coefficient at 40 K
 
     res Res = {resParam/2, {resParam}, {1240}}; 
