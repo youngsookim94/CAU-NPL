@@ -9,8 +9,8 @@ int main(int argc, char **argv)
     float wy = wx;
     float b0 = 150; //distance bet. surface of NW to PML (metal)
 
-    float domLengX = (wx + b0 * 2) / 2; //define domain scale parameter
-    float domLengY = (wy + b0 * 2) / 2;
+    float domLengX = (wx + b0 * 2) / 2 + 100; //define domain scale parameter
+    float domLengY = (wy + b0 * 2) / 2 + 100;
 
     float sPosX = 0;
     float resParam = 2;
@@ -20,15 +20,15 @@ int main(int argc, char **argv)
 	float multiplier = atof(argv[4]);
 
 
-    res Res = {resParam / 2, {resParam, resParam, 8 * resParam}, {1240}, {{2, -wx / 2, wx / 2}, {2, -wy / 2, wy / 2}, {1, -INF, INF}}};
+    res Res = {resParam / 2, {resParam, resParam, 4 * resParam}, {1240}, {{2, -wx / 2, wx / 2}, {2, -wy / 2, wy / 2}, {1, -INF, INF}}};
     //variable grid by width of wg
-    dom Dom = {{domLengX}, {domLengY}, {-1000, 3000}};
+    dom Dom = {{domLengX}, {domLengY}, {-1500, 2500}};
     sur Sur = {{SYM, PEC}, {SYM, PEC}, {PML}, {48}}; 
     world W = createWorld(Dom, Res, Sur, "%s_l%.0f_w%.0f_dx%.1f_X%.0f_Z%.0f_NM%.0f", argv[0], lambda, wx, resParam, sPosX, sPosZ, multiplier);
 
     //input object
-    object Ag_Side = {Box, {{-INF, INF}, {-INF, INF}, {-INF, 0}}};             //metal
-    object Au_Side = {Box, {{-INF, INF}, {-INF, INF}, {0, 2500}}};              //metal
+    object Ag_Side = {Box, {{ - wx/2 - b0, wx/2 + b0}, { - wy / 2 - b0, wy / 2 + b0}, {-1000, 0}}}; //metal
+    object Au_Side = {Box, {{ - wx/2 - b0, wx/2 + b0}, { - wy / 2 - b0, wy / 2 + b0}, {0, 2000}}};  //metal
     object NW_wg = {Box, {{-wx / 2, wx / 2}, {-wy / 2, wy / 2}, {-INF, INF}}}; //dielectric NW
 
     object Ag_wire = {Difference, {2}, objects{Ag_Side, NW_wg}};
